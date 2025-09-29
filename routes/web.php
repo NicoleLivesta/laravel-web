@@ -37,3 +37,5 @@ Route::get('/matakuliah/show/{kode?}', [MatakuliahController::class, 'show']);
 
 
 // hahaha
+
+// yaaa
