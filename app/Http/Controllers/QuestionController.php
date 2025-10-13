@@ -41,7 +41,11 @@ class QuestionController extends Controller
             'pertanyaan' => $request->input('pertanyaan'),
         ];
 
-        return view('home-question-respon', $data);
+        // return view('home-question-respon', $data);
+        // return redirect()->route('home');
+        // return redirect()->back();
+        // return redirect()->away('https://pcr.ac.id/');
+        return redirect()->route('home')->with('info','Berhasil dikirim!');
     }
 
     /**

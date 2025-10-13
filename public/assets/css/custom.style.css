@@ -1,0 +1,18 @@
+.navbar img{
+    height: 40px;
+    weight: auto;
+    border-radius: 50px
+}
+
+@font-face {
+    font-family: 'MyCustomFont';
+    src: url('../fonts/MyCustomFont.ttf') format('truetype');
+}
+
+.font-custom{
+    font-family: 'MyCustomFont';
+}
+
+body {
+    font-family: 'MyCustomFont';
+}
