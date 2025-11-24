@@ -48,9 +48,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dataPelanggan as $item)
+                                @foreach ($dataPelanggan as $index => $item)
                                     <tr>
-                                        <td>{{($dataPelanggan->currentPage() - 1) * $dataPelanggan->perPage() + $item->iteration}}</td>
+                                        <td>{{ $dataPelanggan->firstItem() + $index }}</td>
                                         <td>{{ $item->first_name }}</td>
                                         <td>{{ $item->last_name }}</td>
                                         <td>{{ $item->birthday }}</td>
