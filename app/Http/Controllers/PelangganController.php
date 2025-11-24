@@ -11,17 +11,9 @@ class PelangganController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Pelanggan::query();
-
-        // Filter gender jika ada request
-        if ($request->filled('gender')) {
-            $query->where('gender', $request->gender);
-        }
-
-        // Pagination + mempertahankan query GET
-        $data['dataPelanggan'] = $query->simplePaginate(10)->withQueryString();
-
-        return view('admin.pelanggan.index', $data);
+        $filterableColumns = ['gender'];
+        $pageData['dataPelanggan'] = Pelanggan::filter($request, $filterableColumns)->paginate(10);
+        return view('admin.pelanggan.index', $pageData);
     }
 
     /**
