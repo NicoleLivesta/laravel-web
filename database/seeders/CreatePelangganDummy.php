@@ -28,3 +28,4 @@ class CreatePelangganDummy extends Seeder
         }
     }
 }
+# ada
