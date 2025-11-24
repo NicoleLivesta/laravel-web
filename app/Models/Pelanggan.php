@@ -27,15 +27,17 @@ class Pelanggan extends Model
         }
         return $query;
     }
-    public function scopeSearch($query, $request, array $columns)
+    public function scopeSearch(Builder $query, $request, array $columns): Builder
     {
         if ($request->filled('search')) {
-            $query->where(function($q) use ($request, $columns) {
+            $query->where(function ($q) use ($request, $columns) {
                 foreach ($columns as $column) {
                     $q->orWhere($column, 'LIKE', '%' . $request->search . '%');
                 }
             });
         }
+
+        return $query;
     }
 }
 
