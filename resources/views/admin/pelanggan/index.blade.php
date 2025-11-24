@@ -35,10 +35,10 @@
             <div class="card border-0 shadow mb-4">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <form method="GET" action="{{ route('pelanggan.index') }}" onchange="this.form.submit()" class="mb-3">
+                        <form method="GET" action="{{ route('pelanggan.index') }}" class="mb-3">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <select name="gender" class="form-select">
+                                    <select name="gender" class="form-select" onchange="this.form.submit()">
                                         <option value="">All</option>
                                         <option value="Male" {{ request('gender')=='Male' ? 'selected' : '' }}>Male</option>
                                         <option value="Female" {{ request('gender')=='Female' ? 'selected' : '' }}>Female</option>
