@@ -8,5 +8,12 @@ class Multipleuploads extends Model
 {
     protected $table ='multipleuploads';
     protected $primaryKey = 'id';
-    protected $fillable = array('filename','created_at','updated_at');
+
+    protected $fillable = [
+        'filename',
+        'ref_table',
+        'ref_id',
+        'created_at',
+        'updated_at'
+    ];
 }

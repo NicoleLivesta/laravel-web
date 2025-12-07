@@ -90,9 +90,15 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/multipleuploads', [MultipleuploadsController::class, 'index'])->name('uploads');
     Route::post('/save', [MultipleuploadsController::class, 'store'])->name('uploads.store');
-    // Upload file pendukung pelanggan
+
+    // ⬇️ Ini route baru yang benar (ditambahkan sesuai request)
+    Route::post('/multipleuploads/store-for-ref', [MultipleuploadsController::class, 'storeForRef'])
+        ->name('multipleuploads.storeForRef');
+
     Route::post('/uploads/ref', [MultipleuploadsController::class, 'storeForRef'])->name('uploads.store.ref');
     Route::delete('/uploads/{id}', [MultipleuploadsController::class, 'destroy'])->name('uploads.destroy');
+
+    Route::get('/pelanggan/{id}/detail', [PelangganController::class, 'show'])->name('pelanggan.detail');
     Route::get('/test-write', function() {
         $path = public_path('images/test.txt');
         try {

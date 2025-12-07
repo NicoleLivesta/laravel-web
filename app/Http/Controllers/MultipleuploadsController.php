@@ -57,43 +57,38 @@ class MultipleuploadsController extends Controller
     // Upload file untuk entitas tertentu (misal: pelanggan)
     public function storeForRef(Request $request)
     {
+        dd($request->all(), $request->file('filename'));
+        // Validasi file
         $request->validate([
-            'filename' => 'required',
-            'filename.*' => 'mimes:jpg,jpeg,png,pdf,doc,docx|max:5000',
-            'ref_table' => 'required|string',
-            'ref_id' => 'required|integer'
+            "filename.*" => "required|mimes:jpg,png,pdf,doc,docx|max:2048",
+            "ref_table" => "required",
+            "ref_id" => "required|integer",
         ]);
 
-        $filesData = [];
-
+        // Cek ada file atau tidak
         if ($request->hasFile('filename')) {
             foreach ($request->file('filename') as $file) {
-                if ($file->isValid()) {
-                    $filename = round(microtime(true) * 1000) . '-' . str_replace(' ', '-', $file->getClientOriginalName());
-                    $file->storeAs('images', $filename, 'public');
 
-                    $filesData[] = [
-                        'filename' => $filename,
-                        'ref_table' => $request->ref_table,
-                        'ref_id' => $request->ref_id,
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ];
-                }
+                // Simpan ke storage/app/public/uploads/
+                $path = $file->store('images', 'public');
+
+                // Simpan ke database
+                Multipleuploads::create([
+                    'ref_table' => $request->ref_table,
+                    'ref_id' => $request->ref_id,
+                    'filename' => $path
+                ]);
             }
-            Multipleuploads::insert($filesData);
-
-            return back()->with('success', 'File berhasil diupload!');
         }
 
-        return back()->with('error', 'Tidak ada file yang diupload.');
+        return back()->with('success', 'File berhasil diupload!');
     }
 
     // Hapus file
     public function destroy($id)
     {
         $file = Multipleuploads::findOrFail($id);
-        Storage::disk('public')->delete('images/' . $file->filename);
+        Storage::disk('public')->delete($file->filename);
         $file->delete();
 
         return back()->with('success', 'File berhasil dihapus!');
