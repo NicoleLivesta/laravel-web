@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Pelanggan;
 use Illuminate\Http\Request;
+use App\Models\Multipleuploads;
 
 class PelangganController extends Controller
 {
@@ -53,9 +54,15 @@ class PelangganController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $pelanggan = Pelanggan::findOrFail($id);
+
+        $pelangganFiles = Multipleuploads::where('ref_table', 'pelanggan')
+                            ->where('ref_id', $pelanggan->id)
+                            ->get();
+
+        return view('admin.pelanggan.detail', compact('pelanggan', 'pelangganFiles'));
     }
 
     /**

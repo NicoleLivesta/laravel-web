@@ -31,8 +31,12 @@
                             <a class="nav-link dropdown-toggle pt-1 px-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="media d-flex align-items-center">
                                     <!-- Foto Profil -->
-                                    <img class="avatar rounded-circle" alt="Image placeholder" src="{{ asset('assets-admin/img/team/profile-picture-3.jpg') }}">
-
+                                    <img class="avatar rounded-circle"
+                                        alt="Image placeholder"
+                                        style="object-fit: cover;"
+                                        src="{{ Auth::user()->avatar 
+                                                ? asset('storage/' . Auth::user()->avatar) 
+                                                : asset('assets-admin/img/team/profile-picture-3.jpg') }}">
                                     <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
                                         <!-- Nama Pengguna yang sedang Login -->
                                         <span class="mb-0 font-small fw-bold text-gray-900">{{ Auth::user()->name }}</span>

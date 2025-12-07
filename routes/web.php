@@ -10,6 +10,7 @@ use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MultipleuploadsController;
 
 // ===========================================
 // RUTE TANPA AUTENTIKASI (GUEST)
@@ -86,4 +87,20 @@ Route::middleware('auth')->group(function () {
         // Manajemen Pelanggan
         Route::resource('pelanggan', PelangganController::class);
     });
+
+    Route::get('/multipleuploads', [MultipleuploadsController::class, 'index'])->name('uploads');
+    Route::post('/save', [MultipleuploadsController::class, 'store'])->name('uploads.store');
+    // Upload file pendukung pelanggan
+    Route::post('/uploads/ref', [MultipleuploadsController::class, 'storeForRef'])->name('uploads.store.ref');
+    Route::delete('/uploads/{id}', [MultipleuploadsController::class, 'destroy'])->name('uploads.destroy');
+    Route::get('/test-write', function() {
+        $path = public_path('images/test.txt');
+        try {
+            file_put_contents($path, "Hello");
+            return "Write OK";
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    });
+
 });
